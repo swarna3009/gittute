@@ -34,13 +34,13 @@ def submit():
 
 @app.route('/submittodoitem',methods=["POST"])
 def submit_todo_item():
-    item_name=request.form.get("itemName")
-    item_desc=request.form.get("itemDesc")
-    if not item_name or item_desc:
+    item_name=request.form.get("ItemName")
+    item_desc=request.form.get("ItemDesc")
+    if not item_name or not  item_desc:
         return jsonify({'error':'item name and description required'})
     todo_item={
-        'itemName':item_name,
-        'itemDesc':item_desc
+        'ItemName':item_name,
+        'ItemDesc':item_desc
     }
     todo.insert_one(todo_item)
     return jsonify({'message':'item added sucessfully'})
