@@ -16,7 +16,7 @@ todo = db['todo_items']
 app= Flask(__name__)
 @app.route("/")
 def home():
-    return render_template('index.html')
+    return render_template('todo.html')
 
 @app.route('/api')
 def name():
