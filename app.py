@@ -12,6 +12,7 @@ client = pymongo.MongoClient(MONGO_URI)
 db = client.dummy
 
 collection = db['dummy-collection']
+todo = db['todo_items']
 app= Flask(__name__)
 @app.route("/")
 def home():
@@ -29,6 +30,23 @@ def submit():
     
     print(form_data)
     return 'Data submitted sucessfuly'
+
+
+@app.route('/submittodoitem',methods=["POST"])
+def submit_todo_item():
+    item_name=request.form.get("itemName")
+    item_desc=request.form.get("itemDesc")
+    if not item_name or item_desc:
+        return jsonify({'error':'item name and description required'})
+    todo_item={
+        'itemName':item_name,
+        'itemDesc':item_desc
+    }
+    todo.insert_one(todo_item)
+    return jsonify({'message':'item added sucessfully'})
+    
+
+
     
 if __name__ == "__main__":
     app.run(debug=True)
